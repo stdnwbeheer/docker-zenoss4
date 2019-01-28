@@ -1,85 +1,89 @@
-version: '2'
+version: '3.3'
 
 networks:
   zenoss:
     driver: bridge
 
 services:
+
   zenoss4-memcached:
-    image: memcached:1.4-alpine
-    container_name: zenoss4-memcached
-    hostname: zenoss4-memcached
-    mem_limit: 1g
+    image: stdnwbeheer/memcached:1.4-alpine
     ports:
       - "11211"
     networks:
       - zenoss
+	    aliases:
+		 - zenoss4-memcached
+    deploy:
+	  mode: replicated
+	  replicas: 1
+      resources:
+        limits:
+          memory: 1G		 
 
   zenoss4-rabbitmq:
-    image: rabbitmq:3.6
-    container_name: zenoss4-rabbitmq
-    hostname: zenoss4-rabbitmq
+    image: stdnwbeheer/rabbitmq:3.6
+    ports:
+      - "5672"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "./init_fs/var/lib/rabbitmq:/var/lib/rabbitmq:rw"
-    depends_on:
-      - zenoss4-memcached
     environment:
       - "RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}"
       - "RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}"
       - "RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}"
-    ports:
-      - "5672"
     networks:
       - zenoss
+	    aliases:
+		 - zenoss4-rabbitmq
+    deploy:
+      mode: replicated
+      replicas: 1
 
   zenoss4-redis:
-    image: redis:3.0-alpine
-    container_name: zenoss4-redis
-    hostname: zenoss4-redis
-    volumes:
-      - "./init_fs/data:/data:rw"
-    depends_on:
-      - zenoss4-rabbitmq
+    image: stdnwbeheer/redis:3.0-alpine
     ports:
       - "6379"
+    volumes:
+      - "./init_fs/data:/data:rw"
     networks:
       - zenoss
+	    aliases:
+		 - zenoss4-redis
+    deploy:
+      mode: replicated
+      replicas: 1
 
   zenoss4-mariadb:
-    image: mariadb:5.5
-    container_name: zenoss4-mariadb
-    hostname: zenoss4-mariadb
+    image: stdnwbeheer/mariadb:5.5
+    ports:
+      - "3306"
     volumes:
       - "./init_fs/docker-entrypoint-initdb.d/init.sh:/docker-entrypoint-initdb.d/init_sql.sh:ro"
       - "./init_fs/etc/mysql/conf.d:/etc/mysql/conf.d:ro"
       - "./init_fs/tmp/initdb.d:/tmp/initdb.d:ro"
       - "./init_fs/var/lib/mysql:/var/lib/mysql:rw"
       - "./init_fs/var/log/mysqld.log:/var/log/mysqld.log:rw"
-    depends_on:
-      - zenoss4-redis
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
-    ports:
-      - "3306"
     networks:
       - zenoss
+	    aliases:
+		 - zenoss4-mariadb
+    deploy:
+      mode: replicated
+      replicas: 1
 
   zenoss4-core:
-    image: mcroth/docker-zenoss4 
-    container_name: zenoss4-core
-    hostname: zenoss4-core
-#    volumes:
-#      - "./init_fs/usr/local/zenoss/log:/usr/local/zenoss/log:rw"
-#      - "./init_fs/usr/local/zenoss/ZenPacks:/usr/local/zenoss/ZenPacks:rw"
-    links:
-      - zenoss4-memcached
-      - zenoss4-rabbitmq
-      - zenoss4-redis
-      - zenoss4-mariadb 
-    depends_on:
-      - zenoss4-mariadb
+    image: stdnwbeheer/zenoss4.2.5
     ports:
       - "8080:8080"
+    volumes:
+      - "./init_fs/usr/local/zenoss/log:/usr/local/zenoss/log:rw"
     networks:
       - zenoss
+	    aliases:
+		 - zenoss4-core
+    deploy:
+      mode: replicated
+      replicas: 1
