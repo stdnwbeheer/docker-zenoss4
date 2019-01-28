@@ -33,7 +33,7 @@ echo "...Stopping Zenoss"
 
 # Directory Backup
 echo "...Starting Directory Backup"
-tar --exclude backups --exclude perf --exclude log -czf $BACKUPLOC/zenoss_backup_$DATE.tgz /usr/local/zenoss
+tar --exclude backups --exclude log -czf $BACKUPLOC/zenoss_backup_$DATE.tgz /usr/local/zenoss
 
 # Starting Zenoss
 echo "...Starting Zenoss"
