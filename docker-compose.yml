@@ -17,10 +17,6 @@ services:
       zenoss:
         aliases:
          - zenoss4-memcached
-    deploy:
-      resources:
-        limits:
-          memory: 1G		 
 
   zenoss4-rabbitmq:
     image: stdnwbeheer/rabbitmq:3.6
@@ -39,9 +35,6 @@ services:
       zenoss:
         aliases:
          - zenoss4-rabbitmq
-    deploy:
-      mode: replicated
-      replicas: 1
 
   zenoss4-redis:
     image: stdnwbeheer/redis:3.0-alpine
@@ -55,9 +48,6 @@ services:
       zenoss:
         aliases:
          - zenoss4-redis
-    deploy:
-      mode: replicated
-      replicas: 1
 
   zenoss4-mariadb:
     image: stdnwbeheer/mariadb:5.5
@@ -77,9 +67,6 @@ services:
       zenoss:
         aliases:
          - zenoss4-mariadb
-    deploy:
-      mode: replicated
-      replicas: 1
 
   zenoss4-core:
     image: stdnwbeheer/zenoss4.2.5
@@ -93,6 +80,3 @@ services:
       zenoss:
         aliases:
          - zenoss4-core
-    deploy:
-      mode: replicated
-      replicas: 1
