@@ -42,11 +42,11 @@ Attaching to zenoss4-memcached, zenoss4-rabbitmq, zenoss4-redis, zenoss4-mariadb
 
 root@mcroth:~/sandbox/docker-zenoss4# docker ps -a
 CONTAINER ID        IMAGE                   COMMAND                  CREATED              STATUS              PORTS                                                    NAMES
-0690ca546ee7        mcroth/docker-zenoss4   "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp                                   zenoss4-core
-c75bb844f5d3        mariadb:5.5             "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32832->3306/tcp                                  zenoss4-mariadb
-69a71a9d3151        redis:3.0               "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32831->6379/tcp                                  zenoss4-redis
-5814c80111c3        rabbitmq:3.6            "docker-entrypoint.sh"   About a minute ago   Up About a minute   4369/tcp, 5671/tcp, 25672/tcp, 0.0.0.0:32830->5672/tcp   zenoss4-rabbitmq
-97f1d528d9eb        memcached:1.4           "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32829->11211/tcp                                 zenoss4-memcached
+0690ca546ee7        stdnwbeheer/zenoss4.2.5   "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp                                   zenoss4-core
+c75bb844f5d3        stdnwbeheer/mariadb:5.5             "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32832->3306/tcp                                  zenoss4-mariadb
+69a71a9d3151        stdnwbeheer/redis:3.0               "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32831->6379/tcp                                  zenoss4-redis
+5814c80111c3        stdnwbeheer/rabbitmq:3.6            "docker-entrypoint.sh"   About a minute ago   Up About a minute   4369/tcp, 5671/tcp, 25672/tcp, 0.0.0.0:32830->5672/tcp   zenoss4-rabbitmq
+97f1d528d9eb        stdnwbeheer/memcached:1.4           "docker-entrypoint.sh"   About a minute ago   Up About a minute   0.0.0.0:32829->11211/tcp                                 zenoss4-memcached
 ```
 
 Once the init is done, you ought to have a full, 100% working `zenoss4` docker install located at `http://localhost:8080`! Default zenoss logins: `admin`/`zenoss`
