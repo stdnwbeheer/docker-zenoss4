@@ -65,6 +65,7 @@ services:
       - "./init_fs/tmp/initdb.d:/tmp/initdb.d:ro"
       - "./init_fs/var/lib/mysql:/var/lib/mysql:rw"
       - "./init_fs/var/log/mysqld.log:/var/log/mysqld.log:rw"
+      - "~/zenoss-backups:/zenoss-backups:rw"
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
     networks:
@@ -81,6 +82,7 @@ services:
       - "8080:8080"
     volumes:
       - "./init_fs/usr/local/zenoss/log:/usr/local/zenoss/log:rw"
+      - "~/zenoss-backups:/zenoss-backups:rw"
     networks:
       zenoss:
         aliases:
