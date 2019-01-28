@@ -12,11 +12,9 @@ services:
       - "11211"
     networks:
       - zenoss
-	    aliases:
-		 - zenoss4-memcached
+        aliases:
+	- zenoss4-memcached
     deploy:
-	  mode: replicated
-	  replicas: 1
       resources:
         limits:
           memory: 1G		 
