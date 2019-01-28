@@ -8,7 +8,7 @@ services:
 
   zenoss4-memcached:
     image: stdnwbeheer/memcached:1.4-alpine
-    restart: always
+    restart: unless-stopped
     container_name: zenoss4-memcached
     hostname: zenoss4-memcached
     mem_limit: 1g    
@@ -21,7 +21,7 @@ services:
 
   zenoss4-rabbitmq:
     image: stdnwbeheer/rabbitmq:3.6
-    restart: always
+    restart: unless-stopped
     container_name: zenoss4-rabbitmq
     hostname: zenoss4-rabbitmq
     ports:
@@ -40,7 +40,7 @@ services:
 
   zenoss4-redis:
     image: stdnwbeheer/redis:3.0-alpine
-    restart: always
+    restart: unless-stopped
     container_name: zenoss4-redis
     hostname: zenoss4-redis
     ports:
@@ -54,7 +54,7 @@ services:
 
   zenoss4-mariadb:
     image: stdnwbeheer/mariadb:5.5
-    restart: always
+    restart: unless-stopped
     container_name: zenoss4-mariadb
     hostname: zenoss4-mariadb
     ports:
@@ -74,7 +74,7 @@ services:
 
   zenoss4-core:
     image: stdnwbeheer/zenoss4.2.5
-    restart: always
+    restart: unless-stopped
     container_name: zenoss4-core
     hostname: zenoss4-core
     ports:
