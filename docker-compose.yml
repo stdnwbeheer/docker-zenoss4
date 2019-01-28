@@ -13,7 +13,7 @@ services:
     networks:
       - zenoss
         aliases:
-	- zenoss4-memcached
+        - zenoss4-memcached
     deploy:
       resources:
         limits:
@@ -32,8 +32,8 @@ services:
       - "RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}"
     networks:
       - zenoss
-	    aliases:
-		 - zenoss4-rabbitmq
+      aliases:
+        - zenoss4-rabbitmq
     deploy:
       mode: replicated
       replicas: 1
@@ -46,8 +46,8 @@ services:
       - "./init_fs/data:/data:rw"
     networks:
       - zenoss
-	    aliases:
-		 - zenoss4-redis
+        aliases:
+        - zenoss4-redis
     deploy:
       mode: replicated
       replicas: 1
@@ -66,8 +66,8 @@ services:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
     networks:
       - zenoss
-	    aliases:
-		 - zenoss4-mariadb
+        aliases:
+        - zenoss4-mariadb
     deploy:
       mode: replicated
       replicas: 1
@@ -80,8 +80,8 @@ services:
       - "./init_fs/usr/local/zenoss/log:/usr/local/zenoss/log:rw"
     networks:
       - zenoss
-	    aliases:
-		 - zenoss4-core
+        aliases:
+        - zenoss4-core
     deploy:
       mode: replicated
       replicas: 1
